@@ -58,7 +58,7 @@ def rooster_output(path):
   
   print(df_out)
   df_out.to_csv("output.csv", index=False)
-  failed_df.to_csv("failed.csv", index=False)
+  failed_df.to_excel("failed.xlsx", index=False)
   input("Geslaagd! Druk op een knop om te sluiten. ")
 
 if __name__ == "__main__":
