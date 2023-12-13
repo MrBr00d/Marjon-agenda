@@ -1,6 +1,5 @@
 import pandas as pd
 from datetime import datetime, timedelta
-import numpy as np
 
 def rooster_output(path):
   df = pd.read_csv(path, index_col=False, sep=";")
@@ -15,13 +14,11 @@ def rooster_output(path):
   df = df.loc[:, df.isin(list(diensten.keys())).all()]
   rooster = df.loc[0].to_list()
   werkdatum = df.columns.to_list()
-  # print(werkdatum)
   
   lop_days = []
   for column in df.columns:
     if "LOP" in df[column].values:
         lop_days.append(column)
-  # print(lop_days)
   lop_days_iso = [datetime.strptime(item, "%d-%m-%Y").date() for item in lop_days]
   
   datum2 = []
@@ -57,6 +54,9 @@ def rooster_output(path):
     df_out.loc[(df_out["Start date"] == item), "Subject"] = "LOP"
   
   print(df_out)
+  print('======================================================'+ "\n")
+  print("Fout in verwerking: ")
+  print(failed_df.iloc[0,:])
   df_out.to_csv("output.csv", index=False)
   failed_df.to_excel("failed.xlsx", index=False)
   input("Geslaagd! Druk op een knop om te sluiten. ")
